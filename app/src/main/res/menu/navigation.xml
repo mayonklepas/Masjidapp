@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/thome"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/shalat"
+        android:icon="@drawable/mosquedomes"
+        android:title="@string/shalat" />
+
+    <item
+        android:id="@+id/qiblat"
+        android:icon="@drawable/qiblatcompass"
+        android:title="@string/qiblat" />
+
+    <item
+        android:id="@+id/pesan"
+        android:icon="@drawable/islamiclantern"
+        android:title="@string/pesan" />
+
+    <item
+        android:id="@+id/lainnya"
+        android:icon="@mipmap/ic_more_horiz_black_48dp"
+        android:title="@string/lainnya" />
+
+</menu>

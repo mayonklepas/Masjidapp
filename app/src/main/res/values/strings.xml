@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Masjid Al Azhar BSD</string>
+    <string name="home">Home</string>
+    <string name="shalat">Shalat</string>
+    <string name="qiblat">Qiblat</string>
+    <string name="pesan">Pesan</string>
+    <string name="lainnya">Lainnya</string>
+</resources>
