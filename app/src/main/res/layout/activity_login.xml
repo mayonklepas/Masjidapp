@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alazharbsd.masjid.masjidapp.RegisterActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.alazharbsd.masjid.masjidapp.LoginActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:textColor="#fff"
             android:textSize="20dp"
-            android:text="Register"
+            android:text="Login"
             android:id="@+id/bartitle"/>
 
     </android.support.v7.widget.Toolbar>
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:text="Form Register User"
+        android:text="Form Login"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"/>
     <LinearLayout
@@ -43,29 +43,18 @@
         android:orientation="vertical"
         android:layout_margin="5dp">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/edname"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nama Lengkap"
-            android:inputType="textPersonName"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/edemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edemail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"/>
-    </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -79,23 +68,12 @@
                 android:inputType="textPassword"/>
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/repassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Ketik Ulang Password"
-                android:inputType="textPassword"/>
-        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/register"
-            android:text="Register"
+            android:id="@+id/login"
+            android:text="Login"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="@color/white"/>
 

@@ -46,7 +46,8 @@
         <activity android:name=".Main2Activity" />
         <activity android:name=".KiblatActivity" />
         <activity android:name=".UstadzActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>
