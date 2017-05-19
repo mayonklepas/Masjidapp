@@ -30,6 +30,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +59,7 @@ public class QiblatFragment extends Fragment implements LocationListener {
     double bearing;
     LocationManager locma;
     String provider;
+    float currentDegree;
 
     @Nullable
     @Override
@@ -64,7 +67,6 @@ public class QiblatFragment extends Fragment implements LocationListener {
         View v = inflater.inflate(R.layout.fragment_qiblat, container, false);
         imgqiblat = (ImageView) v.findViewById(R.id.imgqiblat);
         tvgps = (TextView) v.findViewById(R.id.tgps);
-        tvgps.setText("adasdsadsadsads");
 
         kiblat=new SampleView(getActivity().getApplicationContext());
         sman = (SensorManager) getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
@@ -77,18 +79,16 @@ public class QiblatFragment extends Fragment implements LocationListener {
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return kiblat;
+            return v;
         }
         Location location = locma.getLastKnownLocation(provider);
 
-        // Initialize the location fields
         if (location != null) {
             onLocationChanged(location);
-            //kiblat = new SampleView(getActivity().getApplicationContext());
         } else {
             tvgps.setText("Location not available");
         }
-        return kiblat;
+        return v;
     }
 
 
@@ -105,10 +105,18 @@ public class QiblatFragment extends Fragment implements LocationListener {
     private final SensorEventListener mlistener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
-            mvalues = event.values;
+            /*mvalues = event.values;
             if(kiblat!=null){
                 kiblat.invalidate();
-        }
+            }*/
+
+            float degree = Math.round(event.values[0]+((float)gantitempat(longmasjid,latmasjid)/1.6));
+            tvgps.setText("Heading: " + Float.toString(degree) + " degrees");
+            RotateAnimation ra = new RotateAnimation(currentDegree, -degree, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            ra.setDuration(210);
+            ra.setFillAfter(true);
+            imgqiblat.startAnimation(ra);
+            currentDegree = -degree;
 
         }
 
@@ -152,7 +160,7 @@ public class QiblatFragment extends Fragment implements LocationListener {
             return;
         }
         locma.requestLocationUpdates(provider, 0,0 , this);
-        sman.registerListener(mlistener,sn,SensorManager.SENSOR_DELAY_GAME);
+        sman.registerListener(mlistener,sn,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
