@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.LOCATION_HARDWARE" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -45,7 +45,8 @@
         <activity android:name=".KegiatanDetailDetailActivity" />
         <activity android:name=".Main2Activity" />
         <activity android:name=".KiblatActivity" />
-        <activity android:name=".UstadzActivity"></activity>
+        <activity android:name=".UstadzActivity" />
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>

@@ -105,7 +105,7 @@ public class LainnyaFragment extends Fragment {
         imgprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(v.getContext(),ProfileActivity.class);
+                Intent i=new Intent(v.getContext(),RegisterActivity.class);
                 startActivity(i);
             }
         });
