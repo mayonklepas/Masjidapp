@@ -73,25 +73,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:src="@mipmap/ic_perm_identity_black_48dp"/>
 
                         <TextView
+                            android:id="@+id/nama"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
                             android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
                             android:text="nama"
-                            android:textSize="20sp"
-                            android:id="@+id/nama"/>
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -102,11 +104,15 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp">
+
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/ic_email_black_48dp"/>
+                            android:id="@+id/imageView4"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:src="@mipmap/ic_email_black_48dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -114,7 +120,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginLeft="10dp"
                             android:text="email"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:id="@+id/email"/>
 
                     </LinearLayout>
@@ -126,10 +132,12 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp">
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="45dp"
+                            android:layout_height="44dp"
                             android:src="@mipmap/ic_call_black_48dp"/>
 
                         <TextView
@@ -138,7 +146,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginLeft="10dp"
                             android:text="nohp"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:id="@+id/nohp"/>
 
                     </LinearLayout>
