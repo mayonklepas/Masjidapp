@@ -1,10 +1,12 @@
 package com.alazharbsd.masjid.masjidapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,7 +32,8 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     EditText email,password;
     Button login;
-    String resemail,respassword;
+    String resemail="",respassword="";
+    TextView daftarbaru,lupapassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +42,27 @@ public class LoginActivity extends AppCompatActivity {
         email=(EditText) findViewById(R.id.email);
         password=(EditText) findViewById(R.id.password);
         login=(Button) findViewById(R.id.login);
+        daftarbaru=(TextView) findViewById(R.id.daftarbaru);
+        lupapassword=(TextView) findViewById(R.id.lupapassword);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
+            }
+        });
+
+        lupapassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        daftarbaru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -50,16 +70,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login() {
         RequestQueue rq = Volley.newRequestQueue(LoginActivity.this);
-        StringRequest sr = new StringRequest(Request.Method.GET, Config.url + "/masjidapp/rest/login.php",
+        StringRequest sr = new StringRequest(Request.Method.POST, Config.url + "/masjidapp/rest/login.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            System.out.println(response);
                             JSONArray ja = new JSONArray(response);
                             for (int i = 0; i < ja.length(); i++) {
                                 JSONObject jo = ja.getJSONObject(i);
                                 resemail = jo.getString("email");
                                 respassword = jo.getString("password");
+                                System.out.println(resemail);
+                                System.out.println(respassword);
                             }
 
                         } catch (JSONException e) {
@@ -88,9 +111,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onRequestFinished(Request<Object> request) {
                 if (resemail.equals(email.getText().toString()) &&
-                        password.equals(password.getText().toString())) {
+                        respassword.equals(password.getText().toString())) {
                     Toast.makeText(LoginActivity.this, "Anda Telah Login", Toast.LENGTH_LONG).show();
                     Config.statuslogin = 1;
+                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "Maaf Email Atau Password Salah", Toast.LENGTH_LONG).show();
                     Config.statuslogin = 0;
