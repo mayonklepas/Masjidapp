@@ -63,9 +63,14 @@ public class MainActivity extends AppCompatActivity {
                     bartitlekanan2.setText("Tangerang Selatan");
                     return true;
                 case R.id.pesan:
-                    getFragmentManager().beginTransaction().replace(R.id.content,new PengumumanFragment()).commit();
-                    bartitlekanan.setText("Pesan dan");
-                    bartitlekanan2.setText("Pengumuman");
+                    if (Config.statuslogin==1){
+                        getFragmentManager().beginTransaction().replace(R.id.content,new PengumumanFragment()).commit();
+                        bartitlekanan.setText("Pesan dan");
+                        bartitlekanan2.setText("Pengumuman");
+                    }else{
+                        Intent i=new Intent(MainActivity.this,LoginActivity.class);
+                        startActivity(i);
+                    }
                     return true;
                 case R.id.lainnya:
                     getFragmentManager().beginTransaction().replace(R.id.content,new LainnyaFragment()).commit();

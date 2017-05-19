@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     String resemail="",respassword="";
     TextView daftarbaru,lupapassword;
+    ImageView imgback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        imgback=(ImageView) findViewById(R.id.imgback);
+        imgback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -81,8 +90,10 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject jo = ja.getJSONObject(i);
                                 resemail = jo.getString("email");
                                 respassword = jo.getString("password");
-                                System.out.println(resemail);
-                                System.out.println(respassword);
+                                Config.iduser=jo.getString("id");
+                                Config.namauser=jo.getString("nama");
+                                Config.emailuser=jo.getString("email");
+                                Config.nohpuser=jo.getString("nohp");
                             }
 
                         } catch (JSONException e) {
