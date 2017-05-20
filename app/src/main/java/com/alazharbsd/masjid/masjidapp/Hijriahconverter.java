@@ -20,33 +20,33 @@ public class Hijriahconverter {
     public String gettglhijriah(){
         UmmalquraCalendar cal = new UmmalquraCalendar();
         int tahun=cal.get(Calendar.YEAR);
-        int bulan=cal.get(Calendar.MONTH);
+        int bulan=cal.get(Calendar.MONTH)+1;
         int tanggal=cal.get(Calendar.DAY_OF_MONTH);
         String stbulan="";
         switch (bulan){
-            case 0 : stbulan="Muharram";
+            case 1 : stbulan="Muharram";
                 break;
-            case 1 : stbulan="Safar";
+            case 2 : stbulan="Safar";
                 break;
-            case 2 : stbulan="Rabiul Awal";
+            case 3 : stbulan="Rabiul Awal";
                 break;
-            case 3 : stbulan="Rabiul Akhir";
+            case 4 : stbulan="Rabiul Akhir";
                 break;
-            case 4 : stbulan="Jumadil Awal";
+            case 5 : stbulan="Jumadil Awal";
                 break;
-            case 5 : stbulan="Jumadil Akhir";
+            case 6 : stbulan="Jumadil Akhir";
                 break;
-            case 6 : stbulan="Rajab";
+            case 7 : stbulan="Rajab";
                 break;
-            case 7 : stbulan="Sya'ban";
+            case 8 : stbulan="Sya'ban";
                 break;
-            case 8 : stbulan="Ramadhan";
+            case 9 : stbulan="Ramadhan";
                 break;
-            case 9 : stbulan="Syawal";
+            case 10 : stbulan="Syawal";
                 break;
-            case 10 : stbulan="Dzulkaidah";
+            case 11 : stbulan="Dzulkaidah";
                 break;
-            case 11 : stbulan="Dzulhijjah";
+            case 12 : stbulan="Dzulhijjah";
                 break;
         }
 
@@ -59,9 +59,9 @@ public class Hijriahconverter {
         Calendar cl=Calendar.getInstance();
         cl.setTime(date);
         UmmalquraCalendar cal = new UmmalquraCalendar();
-        int tahun=cal.get(cl.YEAR);
-        int bulan=cal.get(cl.MONTH);
-        int tanggal=cal.get(cl.DAY_OF_MONTH);
+        int tahun=cal.get(Calendar.YEAR);
+        int bulan=cal.get(Calendar.MONTH)+1;
+        int tanggal=cal.get(Calendar.DAY_OF_MONTH);
         String stbulan="";
         switch (bulan){
             case 1 : stbulan="Muharram";

@@ -110,7 +110,7 @@ public class QiblatFragment extends Fragment implements LocationListener {
                 kiblat.invalidate();
             }*/
 
-            float degree = Math.round(event.values[0]+((float)gantitempat(longmasjid,latmasjid)/1.6));
+            float degree = Math.round(event.values[0]+((float)gantitempat(longmasjid,latmasjid)/1.7));
             tvgps.setText("Heading: " + Float.toString(degree) + " degrees");
             RotateAnimation ra = new RotateAnimation(currentDegree, -degree, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             ra.setDuration(210);
