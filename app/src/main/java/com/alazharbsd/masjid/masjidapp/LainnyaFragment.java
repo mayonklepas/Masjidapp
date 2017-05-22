@@ -84,7 +84,7 @@ public class LainnyaFragment extends Fragment {
         imgartikel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(v.getContext(),ArtikelActivity.class);
+                Intent i=new Intent(v.getContext(),ArtikelkategoriActivity.class);
                 startActivity(i);
             }
         });

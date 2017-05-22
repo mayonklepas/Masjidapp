@@ -43,7 +43,7 @@ public class KegiatanDetailActivity extends AppCompatActivity {
         recdata.setItemAnimator(new DefaultItemAnimator());
         adapter=new Adapterkegiatandetail(id,tanggal,this);
         Bundle ex=getIntent().getExtras();
-        kategori=ex.getString("kategori");
+        kategori=String.valueOf(ex.getInt("id_kategori"));
         loadata();
         imgback=(ImageView) findViewById(R.id.imgback);
         imgback.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +57,7 @@ public class KegiatanDetailActivity extends AppCompatActivity {
 
     public void loadata(){
         RequestQueue rq= Volley.newRequestQueue(KegiatanDetailActivity.this);
-        StringRequest sr=new StringRequest(Request.Method.GET, Config.url+"/masjidapp/rest/jadwal-kegiatan.php?kategori="+kategori.replace(" ","%20"),
+        StringRequest sr=new StringRequest(Request.Method.GET, Config.url+"/masjidapp/rest/jadwal-kegiatan.php?id_kategori="+kategori,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

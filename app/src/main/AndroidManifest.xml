@@ -47,7 +47,8 @@
         <activity android:name=".KiblatActivity" />
         <activity android:name=".UstadzActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ArtikelkategoriActivity"></activity>
     </application>
 
 </manifest>

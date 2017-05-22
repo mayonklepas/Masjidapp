@@ -1,6 +1,5 @@
 package com.alazharbsd.masjid.masjidapp;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -24,30 +23,26 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ArtikelActivity extends AppCompatActivity {
+public class ArtikelkategoriActivity extends AppCompatActivity {
 
-    RecyclerView recdata;
     ArrayList<Integer> id=new ArrayList<>();
-    ArrayList<String> url=new ArrayList<>();
     ArrayList<String> header=new ArrayList<>();
-    ArrayList<String> detail=new ArrayList<>();
     RecyclerView.LayoutManager layman;
     RecyclerView.Adapter adapter;
-    ProgressBar pb;
     ImageView imgback;
-    String id_kategori;
+    RecyclerView recdata;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_artikel);
-        pb=(ProgressBar) findViewById(R.id.pb);
+        setContentView(R.layout.activity_artikelkategori);
         recdata=(RecyclerView) findViewById(R.id.recdata);
         layman=new LinearLayoutManager(this);
         recdata.setLayoutManager(layman);
         recdata.setHasFixedSize(true);
         recdata.setItemAnimator(new DefaultItemAnimator());
-        adapter=new Adapterartikel(id,url,header,detail,this);
+        adapter=new Adapterkategoriartikel(id,header,this);
+        loadata();
         imgback=(ImageView) findViewById(R.id.imgback);
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,16 +50,13 @@ public class ArtikelActivity extends AppCompatActivity {
                 finish();
             }
         });
-        Bundle ex=getIntent().getExtras();
-        id_kategori= String.valueOf(ex.getInt("id_kategori"));
-        loadata();
+
     }
 
 
     public void loadata(){
-        pb.setVisibility(View.VISIBLE);
-        RequestQueue rq= Volley.newRequestQueue(ArtikelActivity.this);
-        StringRequest sr=new StringRequest(Request.Method.GET, Config.url+"/masjidapp/rest/artikel.php?id_kategori="+id_kategori,
+        RequestQueue rq= Volley.newRequestQueue(ArtikelkategoriActivity.this);
+        StringRequest sr=new StringRequest(Request.Method.GET, Config.url+"/masjidapp/rest/artikel.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -73,9 +65,7 @@ public class ArtikelActivity extends AppCompatActivity {
                             for (int i = 0; i < ja.length() ; i++) {
                                 JSONObject jo=ja.getJSONObject(i);
                                 id.add(jo.getInt("id"));
-                                url.add(Config.url+"/masjidapp/src/gambar/"+jo.getString("gambar"));
-                                header.add(jo.getString("judul"));
-                                detail.add(jo.getString("konten"));
+                                header.add(jo.getString("kategori"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -86,16 +76,9 @@ public class ArtikelActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ArtikelActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ArtikelkategoriActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
         rq.add(sr);
-        rq.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
-
-            @Override
-            public void onRequestFinished(Request<Object> request) {
-                pb.setVisibility(View.GONE);
-            }
-        });
     }
 }

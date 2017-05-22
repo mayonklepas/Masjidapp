@@ -15,14 +15,14 @@ import java.util.ArrayList;
  * Created by Minami on 11/05/2017.
  */
 
-public class Adapterkegiatan extends RecyclerView.Adapter<Adapterkegiatan.Holder>{
+public class Adapterkategoriartikel extends RecyclerView.Adapter<Adapterkategoriartikel.Holder>{
 
 
     ArrayList<Integer> id=new ArrayList<>();
     ArrayList<String> header=new ArrayList<>();
     Context ct;
 
-    public Adapterkegiatan(ArrayList<Integer> id,ArrayList<String> header,KegiatanActivity ct){
+    public Adapterkategoriartikel(ArrayList<Integer> id, ArrayList<String> header, ArtikelkategoriActivity ct){
         this.id=id;
         this.header=header;
         this.ct=ct;
@@ -41,7 +41,7 @@ public class Adapterkegiatan extends RecyclerView.Adapter<Adapterkegiatan.Holder
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.listdata_kegiatan,parent,false);
+        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.listdata_kategoriartikel,parent,false);
         return new Holder(v);
     }
 
@@ -51,7 +51,7 @@ public class Adapterkegiatan extends RecyclerView.Adapter<Adapterkegiatan.Holder
         holder.imgdetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(v.getContext(),KegiatanDetailActivity.class);
+                Intent i=new Intent(v.getContext(),ArtikelActivity.class);
                 i.putExtra("id_kategori",id.get(position));
                 ct.startActivity(i);
             }
