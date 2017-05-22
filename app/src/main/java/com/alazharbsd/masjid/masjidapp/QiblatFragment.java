@@ -48,7 +48,7 @@ public class QiblatFragment extends Fragment implements LocationListener {
 
     private static final String TAG = "compas";
 
-    ImageView imgqiblat;
+    ImageView imgqiblat,imgpenanda;
     TextView tvgps;
     private SensorManager sman;
     private Sensor sn;
@@ -66,8 +66,8 @@ public class QiblatFragment extends Fragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_qiblat, container, false);
         imgqiblat = (ImageView) v.findViewById(R.id.imgqiblat);
+        imgpenanda = (ImageView) v.findViewById(R.id.imgpenanda);
         tvgps = (TextView) v.findViewById(R.id.tgps);
-
         kiblat=new SampleView(getActivity().getApplicationContext());
         sman = (SensorManager) getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         sn = sman.getDefaultSensor(Sensor.TYPE_ORIENTATION);
@@ -111,12 +111,23 @@ public class QiblatFragment extends Fragment implements LocationListener {
             }*/
 
             float degree = Math.round(event.values[0]+((float)gantitempat(longmasjid,latmasjid)/1.7));
-            tvgps.setText("Heading: " + Float.toString(degree) + " degrees");
             RotateAnimation ra = new RotateAnimation(currentDegree, -degree, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             ra.setDuration(210);
             ra.setFillAfter(true);
             imgqiblat.startAnimation(ra);
             currentDegree = -degree;
+            //tvgps.setText("Arah : " + Float.toString(degree) + " degrees");
+            if (degree==360.0){
+                tvgps.setText("Arah Tepat");
+                tvgps.setTextColor(Color.parseColor("#1be528"));
+                imgpenanda.setColorFilter(Color.parseColor("#0fc41b"));
+                imgqiblat.setColorFilter(Color.parseColor("#0fc41b"));
+            }else {
+                tvgps.setText("Arah Belum Tepat");
+                tvgps.setTextColor(Color.parseColor("#ea160b"));
+            }
+
+
 
         }
 
