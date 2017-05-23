@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+//import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,7 @@ import android.widget.ImageView;
 
 public class LainnyaFragment extends Fragment {
 
-    ImageView imgkegiatan,imgkhutbah,imgimam,imgartikel,imgramadhan,imgvideo,imgprofile;
+    ImageView imgkegiatan,imgkhutbah,imgimam,imgartikel,imgramadhan,imgvideo,imgprofile,imginfomasjid;
 
     @Nullable
     @Override
@@ -28,6 +30,7 @@ public class LainnyaFragment extends Fragment {
         imgartikel=(ImageView) v.findViewById(R.id.imgartikel);
         imgvideo=(ImageView) v.findViewById(R.id.imgvideo);
         imgprofile=(ImageView) v.findViewById(R.id.imgprofile);
+        imginfomasjid=(ImageView) v.findViewById(R.id.imginfomasjid);
         kegiatan();
         khutbah();
         imam();
@@ -35,6 +38,7 @@ public class LainnyaFragment extends Fragment {
         artikel();
         video();
         profile();
+        infomasjid();
         return v;
     }
 
@@ -117,6 +121,20 @@ public class LainnyaFragment extends Fragment {
                     startActivity(i);
                 }
 
+            }
+        });
+
+    }
+
+    private void infomasjid(){
+        imginfomasjid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder adb=new AlertDialog.Builder(getActivity());
+                adb.setTitle("Informasi Masjid");
+                adb.setMessage(Config.infomasjid);
+                adb.setNeutralButton("Tutup",null);
+                adb.show();
             }
         });
     }

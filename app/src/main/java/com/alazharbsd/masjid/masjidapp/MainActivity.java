@@ -1,10 +1,13 @@
 package com.alazharbsd.masjid.masjidapp;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -38,6 +41,24 @@ public class MainActivity extends AppCompatActivity {
         bartitlekanan2.setText(hjc.gettglhijriah());
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getFragmentManager().beginTransaction().replace(R.id.content,new MainFragment()).commit();
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.INTERNET},1);
+
+            return;
+        }
+
+        if (ActivityCompat.checkSelfPermission(this.getApplicationContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this.getApplicationContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION
+            },1);
+
+            return;
+        }
 
     }
 

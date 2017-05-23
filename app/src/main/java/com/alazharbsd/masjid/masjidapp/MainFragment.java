@@ -1,11 +1,13 @@
 package com.alazharbsd.masjid.masjidapp;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ import java.util.Date;
 public class MainFragment extends Fragment {
 
     TextView hikmah,hadist,ayat;
+    ImageView imgsharehikmah,imgsharehadist,imgshareayat;
 
     @Nullable
     @Override
@@ -41,7 +44,42 @@ public class MainFragment extends Fragment {
         hikmah=(TextView) v.findViewById(R.id.hikmah);
         hadist=(TextView) v.findViewById(R.id.hadist);
         ayat=(TextView) v.findViewById(R.id.ayat);
+        imgsharehikmah=(ImageView) v.findViewById(R.id.imgsharehikmah);
+        imgsharehadist=(ImageView) v.findViewById(R.id.imgsharehadist);
+        imgshareayat=(ImageView) v.findViewById(R.id.imgshareayat);
         loadata();
+        loadinfo();
+         imgsharehikmah.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                 sharingIntent.setType("text/plain");
+                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, hikmah.getText());
+                 startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
+             }
+         });
+
+        imgsharehadist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, hadist.getText());
+                startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
+            }
+        });
+
+        imgshareayat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ayat.getText());
+                startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
+            }
+        });
+
+
         return v;
     }
 
@@ -59,6 +97,36 @@ public class MainFragment extends Fragment {
                                 hikmah.setText(jo.getString("hikmah_hari_ini"));
                                 hadist.setText(jo.getString("hadist_hari_ini"));
                                 ayat.setText(jo.getString("ayat_hari_ini"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        rq.add(sr);
+    }
+
+    public void loadinfo(){
+        RequestQueue rq= Volley.newRequestQueue(getActivity().getApplicationContext());
+        StringRequest sr=new StringRequest(Request.Method.GET, Config.url+"/masjidapp/rest/infomasjid.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray ja=new JSONArray(response);
+                            for (int i = 0; i < ja.length() ; i++) {
+                                JSONObject jo=ja.getJSONObject(i);
+                                Config.infomasjid=jo.getString("nama")+"\n\n"+
+                                "Email  : "+jo.getString("email")+"\n"+
+                                "Kontak : "+jo.getString("nohp")+"\n"+
+                                "Alamat : "+jo.getString("alamat")+"\n\n"+
+                                jo.getString("keterangan");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

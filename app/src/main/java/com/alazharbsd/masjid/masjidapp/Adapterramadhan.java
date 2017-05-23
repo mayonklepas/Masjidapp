@@ -57,11 +57,9 @@ public class Adapterramadhan extends RecyclerView.Adapter<Adapterramadhan.Holder
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
         Date dt=new Date();
-        Date dt2=new Date();
         String hari="";
         try {
             dt=new SimpleDateFormat("yyyy/MM/dd").parse(header.get(position).replace("-","/"));
-            dt2=new SimpleDateFormat("yyyy-MM-dd").parse(header.get(position));
             hari=new SimpleDateFormat("EEEE, d MMM yyyy").format(dt);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -71,14 +69,6 @@ public class Adapterramadhan extends RecyclerView.Adapter<Adapterramadhan.Holder
         }
         holder.header.setText(hari);
         holder.header2.setText(hjc.gettglhijriah(dt));
-        Calendar cl=Calendar.getInstance();
-        cl.setTime(dt2);
-        UmmalquraCalendar cal = new UmmalquraCalendar();
-        int tahun=cal.get(Calendar.YEAR);
-        int bulan=cal.get(Calendar.MONTH)+1;
-        int tanggal=cal.get(Calendar.DAY_OF_MONTH);
-        System.out.println(header.get(position));
-        System.out.println(Calendar.YEAR +"/"+ Calendar.MONTH +"/"+ Calendar.DAY_OF_MONTH);
         holder.imgdetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

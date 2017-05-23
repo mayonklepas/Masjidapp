@@ -79,6 +79,11 @@ public class QiblatFragment extends Fragment implements LocationListener {
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(),new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION
+            },1);
+
             return v;
         }
         Location location = locma.getLastKnownLocation(provider);
@@ -125,6 +130,8 @@ public class QiblatFragment extends Fragment implements LocationListener {
             }else {
                 tvgps.setText("Arah Belum Tepat");
                 tvgps.setTextColor(Color.parseColor("#ea160b"));
+                imgpenanda.setColorFilter(Color.parseColor("#000000"));
+                imgqiblat.setColorFilter(Color.parseColor("#000000"));
             }
 
 

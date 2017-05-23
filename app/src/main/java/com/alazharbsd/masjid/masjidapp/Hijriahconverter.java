@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Minami on 14/05/2017.
@@ -58,7 +59,9 @@ public class Hijriahconverter {
     public String gettglhijriah(Date date){
         Calendar cl=Calendar.getInstance();
         cl.setTime(date);
+        GregorianCalendar gcal=new GregorianCalendar(cl.get(Calendar.YEAR),cl.get(Calendar.MONTH),cl.get(Calendar.DAY_OF_MONTH));
         UmmalquraCalendar cal = new UmmalquraCalendar();
+        cal.setTime(gcal.getTime());
         int tahun=cal.get(Calendar.YEAR);
         int bulan=cal.get(Calendar.MONTH)+1;
         int tanggal=cal.get(Calendar.DAY_OF_MONTH);

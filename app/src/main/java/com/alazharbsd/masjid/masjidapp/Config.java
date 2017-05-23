@@ -7,11 +7,13 @@ package com.alazharbsd.masjid.masjidapp;
 public class Config {
 
     public static String url="http://www.masjidasysyarif.com";
+    //public static String url="http://10.0.2.2";
     public static String APIKEY="AIzaSyBK-6flB7-yTDUpVOSmJ0AFdNLm8nyfMLQ";
     public static int statuslogin=0;
     public static String iduser="";
     public static String namauser="";
     public static String emailuser="";
     public static String nohpuser="";
+    public static  String infomasjid="";
 
 }
