@@ -61,7 +61,7 @@
                 android:id="@+id/penceramah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="H. Muhammad Ruslan "
+                android:text="-"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tema"
-                android:text="Kisah Perjalan Nabi Muhammad SAW "
+                android:text="-"
                 android:textSize="16sp"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
