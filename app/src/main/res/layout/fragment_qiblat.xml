@@ -14,9 +14,10 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/qiblatcompass"
+        android:src="@drawable/kiblat2"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/imgqiblat"/>
+        android:id="@+id/imgqiblat"
+        android:rotation="24"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

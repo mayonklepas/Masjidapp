@@ -98,11 +98,11 @@ public class QiblatFragment extends Fragment implements LocationListener {
 
 
     private double gantitempat(double longmasjid, double latmasjid){
-        double lngKabah = 39.82616111;
+        double longKabah = 39.82616111;
         double latKabah = 21.42250833;
-        double lndelta= (lngKabah - longmasjid);
-        double y=Math.sin(lndelta)* Math.cos(latKabah);
-        double x=Math.cos(latmasjid)* Math.sin(latKabah)-Math.sin(latmasjid)*Math.cos(latKabah)*Math.cos(lndelta);
+        double longdelta= (longKabah - longmasjid);
+        double y=Math.sin(longdelta)* Math.cos(latKabah);
+        double x=Math.cos(latmasjid)* Math.sin(latKabah)-Math.sin(latmasjid)*Math.cos(latKabah)*Math.cos(longdelta);
         double bearing = Math.toDegrees(Math.atan2(y,x));
         return bearing;
     }
@@ -115,14 +115,14 @@ public class QiblatFragment extends Fragment implements LocationListener {
                 kiblat.invalidate();
             }*/
 
-            float degree = Math.round(event.values[0]+((float)gantitempat(longmasjid,latmasjid)/1.7));
+           // float degree = Math.round(event.values[0]+((float)gantitempat(longmasjid,latmasjid)/1.5));
+            float degree = Math.round(event.values[0]);
             RotateAnimation ra = new RotateAnimation(currentDegree, -degree, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            ra.setDuration(210);
+            ra.setDuration(200);
             ra.setFillAfter(true);
             imgqiblat.startAnimation(ra);
             currentDegree = -degree;
-            //tvgps.setText("Arah : " + Float.toString(degree) + " degrees");
-            if (degree==360.0){
+            /*if (degree==360.0){
                 tvgps.setText("Arah Tepat");
                 tvgps.setTextColor(Color.parseColor("#1be528"));
                 imgpenanda.setColorFilter(Color.parseColor("#0fc41b"));
@@ -131,8 +131,8 @@ public class QiblatFragment extends Fragment implements LocationListener {
                 tvgps.setText("Arah Belum Tepat");
                 tvgps.setTextColor(Color.parseColor("#ea160b"));
                 imgpenanda.setColorFilter(Color.parseColor("#000000"));
-                imgqiblat.setColorFilter(Color.parseColor("#000000"));
-            }
+                //imgqiblat.setColorFilter(Color.parseColor("#000000"));
+            }*/
 
 
 

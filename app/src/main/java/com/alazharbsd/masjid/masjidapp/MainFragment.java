@@ -123,7 +123,7 @@ public class MainFragment extends Fragment {
                             for (int i = 0; i < ja.length() ; i++) {
                                 JSONObject jo=ja.getJSONObject(i);
                                 Config.infomasjid=jo.getString("nama")+"\n\n"+
-                                "Email  : "+jo.getString("email")+"\n"+
+                                "Email   : "+jo.getString("email")+"\n"+
                                 "Kontak : "+jo.getString("nohp")+"\n"+
                                 "Alamat : "+jo.getString("alamat")+"\n\n"+
                                 jo.getString("keterangan");
