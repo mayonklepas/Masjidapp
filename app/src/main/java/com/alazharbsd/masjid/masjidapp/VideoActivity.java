@@ -1,6 +1,7 @@
 package com.alazharbsd.masjid.masjidapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeIntents;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
@@ -52,7 +54,15 @@ public class VideoActivity extends AppCompatActivity{
         recdata.setHasFixedSize(true);
         recdata.setItemAnimator(new DefaultItemAnimator());
         adapter=new Adaptervideo(id,url,header,tanggal,sinopsis,this);
-        loadata();
+        if(YouTubeIntents.isYouTubeInstalled(VideoActivity.this)){
+            loadata();
+        }else{
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.youtube")));
+            } catch (Exception ex) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.youtube")));
+            }
+        }
         //player=(YouTubePlayerView) findViewById(R.id.player);
         imgback=(ImageView) findViewById(R.id.imgback);
         imgback.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +71,7 @@ public class VideoActivity extends AppCompatActivity{
                 finish();
             }
         });
+
     }
 
 
