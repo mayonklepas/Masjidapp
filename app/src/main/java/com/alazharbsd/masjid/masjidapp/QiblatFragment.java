@@ -44,7 +44,7 @@ import static android.content.Context.LOCATION_SERVICE;
  * Created by Minami on 11/05/2017.
  */
 
-public class QiblatFragment extends Fragment implements LocationListener {
+public class QiblatFragment extends Fragment implements SensorEventListener {
 
     private static final String TAG = "compas";
 
@@ -72,7 +72,7 @@ public class QiblatFragment extends Fragment implements LocationListener {
         sman = (SensorManager) getActivity().getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         sn = sman.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 
-        locma = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        /*locma = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         provider = locma.getBestProvider(criteria, false);
         if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
@@ -92,7 +92,7 @@ public class QiblatFragment extends Fragment implements LocationListener {
             onLocationChanged(location);
         } else {
             tvgps.setText("Location not available");
-        }
+        }*/
         return v;
     }
 
@@ -116,7 +116,7 @@ public class QiblatFragment extends Fragment implements LocationListener {
             }*/
 
            // float degree = Math.round(event.values[0]+((float)gantitempat(longmasjid,latmasjid)/1.5));
-            float degree = Math.round(event.values[0]);
+            float degree = Math.round(event.values[0]+65);
             RotateAnimation ra = new RotateAnimation(currentDegree, -degree, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             ra.setDuration(200);
             ra.setFillAfter(true);
@@ -164,7 +164,7 @@ public class QiblatFragment extends Fragment implements LocationListener {
     @Override
     public void onResume() {
         super.onResume();
-        if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
+        /*if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -177,14 +177,14 @@ public class QiblatFragment extends Fragment implements LocationListener {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locma.requestLocationUpdates(provider, 0,0 , this);
-        sman.registerListener(mlistener,sn,SensorManager.SENSOR_DELAY_NORMAL);
+        locma.requestLocationUpdates(provider, 0,0 , this);*/
+        sman.registerListener(this,sn,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
+        /*if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -197,11 +197,11 @@ public class QiblatFragment extends Fragment implements LocationListener {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locma.removeUpdates(this);
-        sman.unregisterListener(mlistener);
+        locma.removeUpdates(this);*/
+        sman.unregisterListener(this);
     }
 
-    @Override
+   /* @Override
     public void onLocationChanged(Location location) {
         latmasjid = location.getLatitude();
         longmasjid = location.getLongitude();
@@ -219,6 +219,23 @@ public class QiblatFragment extends Fragment implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
+
+    }*/
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float degree = Math.round(event.values[0]);
+        RotateAnimation ra = new RotateAnimation(currentDegree, -degree,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        ra.setDuration(200);
+        ra.setFillAfter(true);
+        imgqiblat.startAnimation(ra);
+        currentDegree = -degree;
+        //tvgps.setText("Degree :"+degree);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
 
