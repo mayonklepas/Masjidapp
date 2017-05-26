@@ -15,5 +15,13 @@ public class Config {
     public static String emailuser="";
     public static String nohpuser="";
     public static  String infomasjid="";
+    public static  String subuh="";
+    public static  String dzuhur="";
+    public static  String ashar="";
+    public static  String maghrib="";
+    public static  String isya="";
+    public static boolean notif_is_aktif=false;
+
+
 
 }
