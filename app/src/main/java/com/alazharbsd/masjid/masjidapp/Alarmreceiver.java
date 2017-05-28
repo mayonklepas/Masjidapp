@@ -22,19 +22,6 @@ public class Alarmreceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-
-        MediaPlayer mp=new MediaPlayer().create(context,R.raw.azan);
-        try {
-            if(mp.isPlaying()){
-                mp.stop();
-                mp.release();
-                mp=new MediaPlayer().create(context,R.raw.azan);
-            }
-            mp.start();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
         Bundle extra=intent.getExtras();
         String waktu="";
         int id=extra.getInt("waktu");
@@ -53,15 +40,8 @@ public class Alarmreceiver extends BroadcastReceiver {
             default:waktu="Default";
         }
         Toast.makeText(context, "Waktunya Sholat "+waktu+" Telah Tiba", Toast.LENGTH_LONG).show();
-        /*Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        if (alarmUri == null)
-        {
-            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        }
-        Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
-        ringtone.play();*/
-
         intent = new Intent(context, MainActivity.class);
+        intent.putExtra("kat","jadwal");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent,
                 PendingIntent.FLAG_ONE_SHOT);
@@ -76,6 +56,9 @@ public class Alarmreceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(id, notificationBuilder.build());
 
+        Intent serviceaudio=new Intent(context,Alarmservice.class);
+        context.startService(serviceaudio);
 
     }
+
 }

@@ -4,13 +4,39 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
+
+    <ViewFlipper
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="300px"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/background" />
+        android:id="@+id/slider"
+        android:background="#000000">
+
+        <ImageView
+            android:id="@+id/imgsatu"
+            android:layout_width="match_parent"
+            android:layout_height="400px"
+            android:minHeight="300px"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/satu" />
+
+        <ImageView
+            android:id="@+id/imgdua"
+            android:layout_width="match_parent"
+            android:layout_height="400px"
+            android:minHeight="300px"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/dua" />
+
+        <ImageView
+            android:id="@+id/imgtiga"
+            android:layout_width="match_parent"
+            android:layout_height="400px"
+            android:minHeight="300px"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/tiga" />
+
+
+    </ViewFlipper>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -62,12 +88,12 @@
                                 android:text="" />
 
                             <ImageView
+                                android:id="@+id/imgsharehikmah"
                                 android:layout_width="50px"
                                 android:layout_height="50px"
-                                android:layout_marginLeft="10dp"
-                                android:src="@drawable/ic_share_black_48dp"
                                 android:layout_gravity="right"
-                                android:id="@+id/imgsharehikmah"/>
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/ic_share_black_48dp" />
                         </LinearLayout>
 
 

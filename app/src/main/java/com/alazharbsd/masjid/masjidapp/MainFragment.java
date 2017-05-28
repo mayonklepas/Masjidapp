@@ -7,9 +7,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +31,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static android.R.anim.slide_in_left;
+import static android.R.anim.slide_out_right;
+
 /**
  * Created by Minami on 11/05/2017.
  */
@@ -36,6 +42,7 @@ public class MainFragment extends Fragment {
 
     TextView hikmah,hadist,ayat;
     ImageView imgsharehikmah,imgsharehadist,imgshareayat;
+    ViewFlipper slider;
 
     @Nullable
     @Override
@@ -47,6 +54,18 @@ public class MainFragment extends Fragment {
         imgsharehikmah=(ImageView) v.findViewById(R.id.imgsharehikmah);
         imgsharehadist=(ImageView) v.findViewById(R.id.imgsharehadist);
         imgshareayat=(ImageView) v.findViewById(R.id.imgshareayat);
+        slider=(ViewFlipper) v.findViewById(R.id.slider);
+        slider.setAutoStart(true);
+        slider.setFlipInterval(5000);
+        slider.setInAnimation(AnimationUtils.loadAnimation(getActivity(), slide_in_left));
+        slider.startFlipping();
+        slider.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                slider.showNext();
+            }
+        });
         loadata();
         loadinfo();
          imgsharehikmah.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +73,10 @@ public class MainFragment extends Fragment {
              public void onClick(View v) {
                  Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                  sharingIntent.setType("text/plain");
-                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, hikmah.getText());
+                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, hikmah.getText()+
+                         ".\n\nDi Share dari Aplikasi Asy-Syarif, Bagikan dan Tebar Manfaaf." +
+                         "\nDownload Aplikasinya Di Playstore," +
+                         " \"Masjid Asysyarif\" ");
                  startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
              }
          });
@@ -64,7 +86,10 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, hadist.getText());
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, hadist.getText()+
+                        ".\n\nDi Share dari Aplikasi Asy-Syarif, Bagikan dan Tebar Manfaaf." +
+                        "\nDownload Aplikasinya Di Playstore," +
+                        " \"Masjid Asysyarif\" ");
                 startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
             }
         });
@@ -74,7 +99,10 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ayat.getText());
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ayat.getText()+
+                        ".\n\nDi Share dari Aplikasi Asy-Syarif, Bagikan dan Tebar Manfaaf." +
+                        "\nDownload Aplikasinya Di Playstore," +
+                        " \"Masjid Asysyarif\" ");
                 startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
             }
         });

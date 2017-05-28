@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.LOCATION_HARDWARE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -51,8 +50,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ArtikelkategoriActivity"></activity>
-        <receiver android:name=".Alarmreceiver" android:enabled="true">
-        </receiver>
+        <receiver android:name=".Alarmreceiver" android:enabled="true" />
+        <service android:name=".Alarmservice" android:enabled="true" />
     </application>
 
 </manifest>

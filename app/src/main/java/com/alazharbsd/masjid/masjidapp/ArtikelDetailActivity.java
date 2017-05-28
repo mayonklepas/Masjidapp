@@ -50,7 +50,10 @@ public class ArtikelDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, judul.getText()+"\n"+tanggal.getText()+"\n\n"+konten.getText());
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, judul.getText()+"\n"+tanggal.getText()+"\n\n"+konten.getText()+
+                        ".\n\nDi Share dari Aplikasi Asy-Syarif, Bagikan dan Tebar Manfaaf." +
+                        "\nDownload Aplikasinya Di Playstore," +
+                        " \"Masjid Asysyarif\" ");
                 startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
             }
         });

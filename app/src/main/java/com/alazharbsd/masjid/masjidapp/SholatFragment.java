@@ -82,6 +82,7 @@ public class SholatFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     Config.notif_is_aktif=true;
+                    //loadalarm();
                     loadalarmsubuh();
                     loadalarmdzuhur();
                     loadalarmashar();
@@ -167,26 +168,31 @@ public class SholatFragment extends Fragment {
     public void loadalarm(){
         alm=(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, 9);
-        calendar.set(Calendar.MINUTE, 37);
-        calendar.set(Calendar.AM_PM,Calendar.AM);
+        calendar.set(Calendar.HOUR, 9 );
+        calendar.set(Calendar.MINUTE, 39);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        calendar.set(Calendar.AM_PM,Calendar.PM);
+        if(System.currentTimeMillis() > calendar.getTimeInMillis()){
+            calendar.add(Calendar.DAY_OF_YEAR,1);
+        }
         Intent intent = new Intent(getActivity().getApplicationContext(), Alarmreceiver.class);
         intent.putExtra("waktu",1);
         pi = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 1, intent, 0);
-        alm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
-        Toast.makeText(getActivity(), "Alarm start", Toast.LENGTH_SHORT).show();
+        alm.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis() ,AlarmManager.INTERVAL_DAY, pi);
     }
-
 
    private void loadalarmsubuh(){
        alm=(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
        Calendar calendar = Calendar.getInstance();
-       calendar.set(Calendar.HOUR, Integer.parseInt(Config.subuh.split(":")[0]) );
-       calendar.set(Calendar.MINUTE, Integer.parseInt(Config.subuh.split(":")[1]));
+       calendar.set(Calendar.HOUR,Integer.parseInt(Config.subuh.split(":")[0]));
+       calendar.set(Calendar.MINUTE,Integer.parseInt(Config.subuh.split(":")[1]));
+       calendar.set(Calendar.SECOND,0);
+       calendar.set(Calendar.MILLISECOND,0);
        calendar.set(Calendar.AM_PM,Calendar.AM);
-       /*if (System.currentTimeMillis() > calendar.getTimeInMillis()) {
-           calendar.add(Calendar.DATE, 1);
-       }*/
+       if(System.currentTimeMillis() > calendar.getTimeInMillis()){
+         calendar.add(Calendar.DAY_OF_YEAR,1);
+       }
        Intent intent = new Intent(getActivity().getApplicationContext(), Alarmreceiver.class);
        intent.putExtra("waktu",1);
        pi = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 1, intent, 0);
@@ -196,13 +202,14 @@ public class SholatFragment extends Fragment {
     private void loadalarmdzuhur(){
         alm=(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, Integer.parseInt(Config.dzuhur.split(":")[0]) );
-        calendar.set(Calendar.MINUTE, Integer.parseInt(Config.dzuhur.split(":")[1]));
-        calendar.set(Calendar.AM_PM,Calendar.AM);
-        /*if (System.currentTimeMillis() > calendar.getTimeInMillis()) {
-            calendar.add(Calendar.DATE, 1);
-        }*/
-
+        calendar.set(Calendar.HOUR,Integer.parseInt(Config.dzuhur.split(":")[0]));
+        calendar.set(Calendar.MINUTE,Integer.parseInt(Config.dzuhur.split(":")[1]));
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        calendar.set(Calendar.AM_PM,Calendar.PM);
+        if(System.currentTimeMillis() > calendar.getTimeInMillis()){
+            calendar.add(Calendar.DAY_OF_YEAR,1);
+        }
         Intent intent = new Intent(getActivity().getApplicationContext(), Alarmreceiver.class);
         intent.putExtra("waktu",2);
         pi = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 2, intent, 0);
@@ -212,12 +219,14 @@ public class SholatFragment extends Fragment {
     private void loadalarmashar(){
         alm=(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, Integer.parseInt(Config.ashar.split(":")[0]) );
-        calendar.set(Calendar.MINUTE, Integer.parseInt(Config.ashar.split(":")[1]));
+        calendar.set(Calendar.HOUR,Integer.parseInt(Config.ashar.split(":")[0]));
+        calendar.set(Calendar.MINUTE,Integer.parseInt(Config.ashar.split(":")[1]));
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
         calendar.set(Calendar.AM_PM,Calendar.PM);
-        /*if (System.currentTimeMillis() > calendar.getTimeInMillis()) {
-            calendar.add(Calendar.DATE, 1);
-        }*/
+        if(System.currentTimeMillis() > calendar.getTimeInMillis()){
+            calendar.add(Calendar.DAY_OF_YEAR,1);
+        }
         Intent intent = new Intent(getActivity().getApplicationContext(), Alarmreceiver.class);
         intent.putExtra("waktu",3);
         pi = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 3, intent, 0);
@@ -227,12 +236,14 @@ public class SholatFragment extends Fragment {
     private void loadalarmmaghrib(){
         alm=(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, Integer.parseInt(Config.maghrib.split(":")[0]) );
-        calendar.set(Calendar.MINUTE, Integer.parseInt(Config.maghrib.split(":")[1]));
+        calendar.set(Calendar.HOUR,Integer.parseInt(Config.maghrib.split(":")[0]));
+        calendar.set(Calendar.MINUTE,Integer.parseInt(Config.maghrib.split(":")[1]));
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
         calendar.set(Calendar.AM_PM,Calendar.PM);
-        /*if (System.currentTimeMillis() > calendar.getTimeInMillis()) {
-            calendar.add(Calendar.DATE, 1);
-        }*/
+        if(System.currentTimeMillis() > calendar.getTimeInMillis()){
+            calendar.add(Calendar.DAY_OF_YEAR,1);
+        }
         Intent intent = new Intent(getActivity().getApplicationContext(), Alarmreceiver.class);
         intent.putExtra("waktu",4);
         pi = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 4, intent, 0);
@@ -242,12 +253,14 @@ public class SholatFragment extends Fragment {
     private void loadalarmisya(){
         alm=(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, Integer.parseInt(Config.isya.split(":")[0]) );
-        calendar.set(Calendar.MINUTE, Integer.parseInt(Config.isya.split(":")[1]));
+        calendar.set(Calendar.HOUR,Integer.parseInt(Config.isya.split(":")[0]));
+        calendar.set(Calendar.MINUTE,Integer.parseInt(Config.isya.split(":")[1]));
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
         calendar.set(Calendar.AM_PM,Calendar.PM);
-        /*if (System.currentTimeMillis() > calendar.getTimeInMillis()) {
-            calendar.add(Calendar.DATE, 1);
-        }*/
+        if(System.currentTimeMillis() > calendar.getTimeInMillis()){
+            calendar.add(Calendar.DAY_OF_YEAR,1);
+        }
         Intent intent = new Intent(getActivity().getApplicationContext(), Alarmreceiver.class);
         intent.putExtra("waktu",5);
         pi = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 5, intent, 0);

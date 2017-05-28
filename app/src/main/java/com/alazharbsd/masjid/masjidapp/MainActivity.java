@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (ActivityCompat.checkSelfPermission(this.getApplicationContext(),
+        /*if (ActivityCompat.checkSelfPermission(this.getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this.getApplicationContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             },1);
 
             return;
-        }
+        }*/
 
         /*final AlertDialog.Builder adb=new AlertDialog.Builder(this);
         LayoutInflater li=getLayoutInflater();
@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         AlertDialog.Builder adb=new AlertDialog.Builder(this);
         adb.setTitle("Pemberitahuan");
         adb.setMessage("Keluar dari aplikasi akan menghentikan pemberitahuan, Lakukan?");
@@ -130,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         adb.show();
+        //super.onBackPressed();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
