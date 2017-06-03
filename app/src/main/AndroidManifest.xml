@@ -44,7 +44,7 @@
         <activity android:name=".ArtikelDetailActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".KegiatanDetailDetailActivity" />
-        <activity android:name=".Main2Activity" />
+        <activity android:name=".KataDetailActivity" />
         <activity android:name=".KiblatActivity" />
         <activity android:name=".UstadzActivity" />
         <activity android:name=".RegisterActivity" />

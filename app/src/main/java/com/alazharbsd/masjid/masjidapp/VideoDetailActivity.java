@@ -47,6 +47,7 @@ public class VideoDetailActivity extends YouTubeBaseActivity implements YouTubeP
             youTubePlayer.loadVideo(videoid);
             youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.CHROMELESS);
             youTubePlayer.setShowFullscreenButton(true);
+
         }
     }
 

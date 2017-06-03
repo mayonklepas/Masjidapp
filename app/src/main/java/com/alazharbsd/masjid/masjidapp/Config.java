@@ -21,6 +21,7 @@ public class Config {
     public static  String maghrib="";
     public static  String isya="";
     public static boolean notif_is_aktif=false;
+    public static String meridiandzuhur="";
 
 
 

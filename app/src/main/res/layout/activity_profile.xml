@@ -82,6 +82,7 @@
                         android:orientation="horizontal"
                         android:layout_marginBottom="10dp">
                         <ImageView
+                            android:tint="@color/colorPrimary"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:src="@mipmap/ic_perm_identity_black_48dp"/>
@@ -112,7 +113,8 @@
                             android:id="@+id/imageView4"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
-                            android:src="@mipmap/ic_email_black_48dp" />
+                            android:src="@mipmap/ic_email_black_48dp"
+                            android:tint="@color/colorPrimary"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -135,10 +137,13 @@
                         android:orientation="horizontal"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp">
+
                         <ImageView
+                            android:id="@+id/imageView"
                             android:layout_width="45dp"
                             android:layout_height="44dp"
-                            android:src="@mipmap/ic_call_black_48dp"/>
+                            android:src="@mipmap/ic_call_black_48dp"
+                            android:tint="@color/colorPrimary"/>
 
                         <TextView
                             android:layout_width="wrap_content"

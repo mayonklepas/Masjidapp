@@ -112,29 +112,30 @@ public class SholatFragment extends Fragment {
         pbmaghrib.setVisibility(View.VISIBLE);
         pbisya.setVisibility(View.VISIBLE);
         RequestQueue rq= Volley.newRequestQueue(getActivity().getApplicationContext());
-        StringRequest sr=new StringRequest(Request.Method.GET, "http://muslimsalat.com/daily.json?key=276f474cf500d68dbda226020830e753",
+        StringRequest sr=new StringRequest(Request.Method.GET, Config.url+"/masjidapp/rest/jadwal-sholat.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        //System.out.println(response);
                         try {
-                            JSONObject jos=new JSONObject(response);
-                            JSONArray ja=new JSONArray(jos.getString("items"));
+                            JSONArray ja=new JSONArray(response);
                             for (int i = 0; i < ja.length() ; i++) {
                                 JSONObject jo=ja.getJSONObject(i);
-                                ssubuh=jo.getString("fajr").toUpperCase();
-                                sdzuhur=jo.getString("dhuhr").toUpperCase();
-                                sashar=jo.getString("asr").toUpperCase();
+                                ssubuh=jo.getString("subuh").toUpperCase();
+                                sdzuhur=jo.getString("dzuhur").toUpperCase();
+                                sashar=jo.getString("ashar").toUpperCase();
                                 smaghrib=jo.getString("maghrib").toUpperCase();
-                                sisya=jo.getString("isha").toUpperCase();
-                                Config.subuh=jo.getString("fajr").substring(0,jo.getString("fajr").length()-3);
-                                Config.dzuhur=jo.getString("dhuhr").substring(0,jo.getString("dhuhr").length()-3);
-                                Config.ashar=jo.getString("asr").substring(0,jo.getString("asr").length()-3);
+                                sisya=jo.getString("isya").toUpperCase();
+                                Config.subuh=jo.getString("subuh").substring(0,jo.getString("subuh").length()-3);
+                                Config.dzuhur=jo.getString("dzuhur").substring(0,jo.getString("dzuhur").length()-3);
+                                Config.meridiandzuhur=jo.getString("dzuhur").split(" ")[1].toUpperCase();
+                                Config.ashar=jo.getString("ashar").substring(0,jo.getString("ashar").length()-3);
                                 Config.maghrib=jo.getString("maghrib").substring(0,jo.getString("maghrib").length()-3);
-                                Config.isya=jo.getString("isha").substring(0,jo.getString("isha").length()-3);
-
+                                Config.isya=jo.getString("isya").substring(0,jo.getString("isya").length()-3);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -206,7 +207,11 @@ public class SholatFragment extends Fragment {
         calendar.set(Calendar.MINUTE,Integer.parseInt(Config.dzuhur.split(":")[1]));
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND,0);
-        calendar.set(Calendar.AM_PM,Calendar.PM);
+        if(Config.meridiandzuhur.equals("AM")){
+            calendar.set(Calendar.AM_PM,Calendar.AM);
+        }else{
+            calendar.set(Calendar.AM_PM,Calendar.PM);
+        }
         if(System.currentTimeMillis() > calendar.getTimeInMillis()){
             calendar.add(Calendar.DAY_OF_YEAR,1);
         }

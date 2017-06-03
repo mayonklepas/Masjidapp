@@ -40,9 +40,11 @@ import static android.R.anim.slide_out_right;
 
 public class MainFragment extends Fragment {
 
-    TextView hikmah,hadist,ayat;
-    ImageView imgsharehikmah,imgsharehadist,imgshareayat;
+    TextView hikmah,hadist,ayat,artikel,detailartikel,detailhikmah,detailhadist,detailayat;
+    ImageView imgsyar,imgartikel,
+            imgscjadwalkegiatan,imgscjadwalkhutbah,imgscjadwalmasjid,imgscjadwalramadhan,imgscartikel,imgscvideo;
     ViewFlipper slider;
+    int idartikel;
 
     @Nullable
     @Override
@@ -51,9 +53,19 @@ public class MainFragment extends Fragment {
         hikmah=(TextView) v.findViewById(R.id.hikmah);
         hadist=(TextView) v.findViewById(R.id.hadist);
         ayat=(TextView) v.findViewById(R.id.ayat);
-        imgsharehikmah=(ImageView) v.findViewById(R.id.imgsharehikmah);
-        imgsharehadist=(ImageView) v.findViewById(R.id.imgsharehadist);
-        imgshareayat=(ImageView) v.findViewById(R.id.imgshareayat);
+        artikel=(TextView) v.findViewById(R.id.artikel);
+        detailartikel=(TextView) v.findViewById(R.id.detailartikel);
+        detailhikmah=(TextView) v.findViewById(R.id.detailhikmah);
+        detailhadist=(TextView) v.findViewById(R.id.detailhadist);
+        detailayat=(TextView) v.findViewById(R.id.detailayat);
+        imgsyar=(ImageView) v.findViewById(R.id.imgsyar);
+        imgartikel=(ImageView) v.findViewById(R.id.imgartikel);
+        imgscjadwalkegiatan=(ImageView) v.findViewById(R.id.imgscjadwalkegiatan);
+        imgscjadwalkhutbah=(ImageView) v.findViewById(R.id.imgscjadwalkhutbah);
+        imgscjadwalmasjid=(ImageView) v.findViewById(R.id.imgscjadwalmasjid);
+        imgscjadwalramadhan=(ImageView) v.findViewById(R.id.imgscjadwalramadhan);
+        imgscartikel=(ImageView) v.findViewById(R.id.imgscartikel);
+        imgscvideo=(ImageView) v.findViewById(R.id.imgscvideo);
         slider=(ViewFlipper) v.findViewById(R.id.slider);
         slider.setAutoStart(true);
         slider.setFlipInterval(5000);
@@ -67,48 +79,108 @@ public class MainFragment extends Fragment {
             }
         });
         loadata();
+        loadartikel();
         loadinfo();
-         imgsharehikmah.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                 sharingIntent.setType("text/plain");
-                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, hikmah.getText()+
-                         ".\n\nDi Share dari Aplikasi Asy-Syarif, Bagikan dan Tebar Manfaaf." +
-                         "\nDownload Aplikasinya Di Playstore," +
-                         " \"Masjid Asysyarif\" ");
-                 startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
-             }
-         });
-
-        imgsharehadist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, hadist.getText()+
-                        ".\n\nDi Share dari Aplikasi Asy-Syarif, Bagikan dan Tebar Manfaaf." +
-                        "\nDownload Aplikasinya Di Playstore," +
-                        " \"Masjid Asysyarif\" ");
-                startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
-            }
-        });
-
-        imgshareayat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ayat.getText()+
-                        ".\n\nDi Share dari Aplikasi Asy-Syarif, Bagikan dan Tebar Manfaaf." +
-                        "\nDownload Aplikasinya Di Playstore," +
-                        " \"Masjid Asysyarif\" ");
-                startActivity(Intent.createChooser(sharingIntent,"Share Ke"));
-            }
-        });
-
-
+        loadsyar();
+        shortcut();
         return v;
+    }
+
+    public void shortcut(){
+
+        detailhikmah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),KataDetailActivity.class);
+                i.putExtra("header","Hikmah Hari Ini");
+                i.putExtra("detail",hikmah.getText());
+                startActivity(i);
+            }
+        });
+
+        detailhadist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),KataDetailActivity.class);
+                i.putExtra("header","Hadist Hari Ini");
+                i.putExtra("detail",hadist.getText());
+                startActivity(i);
+            }
+        });
+
+        detailayat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),KataDetailActivity.class);
+                i.putExtra("header","Ayat Hari Ini");
+                i.putExtra("detail",ayat.getText());
+                startActivity(i);
+            }
+        });
+
+        detailartikel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),ArtikelDetailActivity.class);
+                i.putExtra("id",idartikel);
+                startActivity(i);
+            }
+        });
+
+
+
+
+
+        imgscjadwalkegiatan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),KegiatanActivity.class);
+                startActivity(i);
+            }
+        });
+
+        imgscjadwalkhutbah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),KhutbahActivity.class);
+                startActivity(i);
+            }
+        });
+
+        imgscjadwalmasjid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),ImamActivity.class);
+                startActivity(i);
+            }
+        });
+
+        imgscjadwalramadhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),RamadhanActivity.class);
+                startActivity(i);
+            }
+        });
+
+        imgscartikel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),ArtikelkategoriActivity.class);
+                startActivity(i);
+            }
+        });
+
+
+        imgscvideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),VideoActivity.class);
+                startActivity(i);
+            }
+        });
+
+
     }
 
 
@@ -125,6 +197,75 @@ public class MainFragment extends Fragment {
                                 hikmah.setText(jo.getString("hikmah_hari_ini"));
                                 hadist.setText(jo.getString("hadist_hari_ini"));
                                 ayat.setText(jo.getString("ayat_hari_ini"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        rq.add(sr);
+    }
+
+    public void loadartikel(){
+        RequestQueue rq= Volley.newRequestQueue(getActivity().getApplicationContext());
+        StringRequest sr=new StringRequest(Request.Method.GET, Config.url+"/masjidapp/rest/home-artikel.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray ja=new JSONArray(response);
+                            for (int i = 0; i < ja.length() ; i++) {
+                                JSONObject jo=ja.getJSONObject(i);
+                                String textartikel=jo.getString("konten");
+                                String judul=jo.getString("judul");
+                                idartikel=jo.getInt("id");
+                                if(textartikel.length() < 200){
+                                    artikel.setText(judul+"\n\n"+textartikel);
+                                }else{
+                                    artikel.setText(judul+"\n\n"+textartikel.substring(0,200)+"...");
+                                }
+
+                                Glide.with(getActivity()).
+                                        load(Config.url+"/masjidapp/src/gambar/"+jo.getString("gambar")).
+                                        centerCrop().crossFade().
+                                        diskCacheStrategy(DiskCacheStrategy.NONE).
+                                        into(imgartikel);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        rq.add(sr);
+    }
+
+    public void loadsyar(){
+        RequestQueue rq= Volley.newRequestQueue(getActivity().getApplicationContext());
+        StringRequest sr=new StringRequest(Request.Method.GET, Config.url+"/masjidapp/rest/home-syar.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray ja=new JSONArray(response);
+                            for (int i = 0; i < ja.length() ; i++) {
+                                JSONObject jo=ja.getJSONObject(i);
+                                Glide.with(getActivity()).
+                                        load(Config.url+"/masjidapp/src/gambar/"+jo.getString("gambar")).
+                                        centerCrop().crossFade().
+                                        diskCacheStrategy(DiskCacheStrategy.NONE).
+                                        into(imgsyar);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

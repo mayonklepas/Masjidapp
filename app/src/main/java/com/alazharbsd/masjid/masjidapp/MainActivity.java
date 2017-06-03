@@ -5,11 +5,14 @@ import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -59,16 +62,53 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         bartitlekanan.setText(hari);
         bartitlekanan2.setText(hjc.gettglhijriah());
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        getFragmentManager().beginTransaction().replace(R.id.content,new MainFragment()).commit();
-        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.INTERNET},1);
+        if(koneksi()==false){
+            AlertDialog.Builder adb=new AlertDialog.Builder(this);
+            adb.setTitle("Pemberitahuan");
+            adb.setMessage("Internet Tidak Aktif, Anda Harus Mengaktifkan Internet Anda untuk Menggunakan Aplikasi");
+            adb.setPositiveButton("Oke", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    System.exit(0);
+                }
+            });
+            adb.setCancelable(false);
+            adb.show();
 
-            return;
+        }else {
+
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+            getFragmentManager().beginTransaction().replace(R.id.content, new MainFragment()).commit();
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 1);
+
+                return;
+            }
+
+            final Dialog dialog = new Dialog(this);
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            LayoutInflater li = getLayoutInflater();
+            View inflate = li.inflate(R.layout.custompopup, null);
+            dialog.setContentView(inflate);
+            imgpop = (ImageView) inflate.findViewById(R.id.popupbg);
+            Glide.with(this).load(Config.url + "/masjidapp/src/gambar/pictinfo.jpg").
+                    diskCacheStrategy(DiskCacheStrategy.NONE).
+                    centerCrop().
+                    into(imgpop);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            dialog.show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                }
+            }, 10 * 1000);
         }
 
-        /*if (ActivityCompat.checkSelfPermission(this.getApplicationContext(),
+                /*if (ActivityCompat.checkSelfPermission(this.getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this.getApplicationContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -80,35 +120,24 @@ public class MainActivity extends AppCompatActivity {
             return;
         }*/
 
-        /*final AlertDialog.Builder adb=new AlertDialog.Builder(this);
-        LayoutInflater li=getLayoutInflater();
-        View inflate=li.inflate(R.layout.custompopup,null);
-        adb.setView(inflate);
-        adb.setNeutralButton("Tutup", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });*/
+    }
 
-        final Dialog dialog = new Dialog(this);
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        LayoutInflater li=getLayoutInflater();
-        View inflate=li.inflate(R.layout.custompopup,null);
-        dialog.setContentView(inflate);
-        imgpop=(ImageView) inflate.findViewById(R.id.popupbg);
-        Glide.with(this).load(Config.url+"/masjidapp/src/gambar/pictinfo.jpg").diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().placeholder(R.drawable.masjidback).
-                into(imgpop);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        dialog.show();
+    private boolean koneksi() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-            }
-        }, 5 * 1000);
-
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
 
     @Override
