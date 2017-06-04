@@ -161,7 +161,7 @@ public class SholatFragment extends Fragment {
                 maghrib.setText(smaghrib);
                 isya.setText(sisya);
                 tbnotif.setVisibility(View.VISIBLE);
-                System.out.println(Config.subuh);
+                System.out.println(Config.meridiandzuhur);
             }
         });
     }
@@ -219,6 +219,7 @@ public class SholatFragment extends Fragment {
         intent.putExtra("waktu",2);
         pi = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 2, intent, 0);
         alm.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis() ,AlarmManager.INTERVAL_DAY, pi);
+
     }
 
     private void loadalarmashar(){

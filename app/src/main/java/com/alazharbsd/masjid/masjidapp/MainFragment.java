@@ -45,6 +45,7 @@ public class MainFragment extends Fragment {
             imgscjadwalkegiatan,imgscjadwalkhutbah,imgscjadwalmasjid,imgscjadwalramadhan,imgscartikel,imgscvideo;
     ViewFlipper slider;
     int idartikel;
+    String hikmahini,hadistini,ayatini;
 
     @Nullable
     @Override
@@ -93,7 +94,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 Intent i=new Intent(getActivity(),KataDetailActivity.class);
                 i.putExtra("header","Hikmah Hari Ini");
-                i.putExtra("detail",hikmah.getText());
+                i.putExtra("detail",hikmahini);
                 startActivity(i);
             }
         });
@@ -103,7 +104,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 Intent i=new Intent(getActivity(),KataDetailActivity.class);
                 i.putExtra("header","Hadist Hari Ini");
-                i.putExtra("detail",hadist.getText());
+                i.putExtra("detail",hadistini);
                 startActivity(i);
             }
         });
@@ -113,7 +114,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 Intent i=new Intent(getActivity(),KataDetailActivity.class);
                 i.putExtra("header","Ayat Hari Ini");
-                i.putExtra("detail",ayat.getText());
+                i.putExtra("detail",ayatini);
                 startActivity(i);
             }
         });
@@ -194,9 +195,27 @@ public class MainFragment extends Fragment {
                             JSONArray ja=new JSONArray(response);
                             for (int i = 0; i < ja.length() ; i++) {
                                 JSONObject jo=ja.getJSONObject(i);
-                                hikmah.setText(jo.getString("hikmah_hari_ini"));
-                                hadist.setText(jo.getString("hadist_hari_ini"));
-                                ayat.setText(jo.getString("ayat_hari_ini"));
+                                hikmahini=jo.getString("hikmah_hari_ini");
+                                hadistini=jo.getString("hadist_hari_ini");
+                                ayatini=jo.getString("ayat_hari_ini");
+                                if(hikmahini.length() < 300 ){
+                                    hikmah.setText(hikmahini);
+                                }else{
+                                    hikmah.setText(hikmahini.substring(0,300)+"...");
+                                }
+
+                                if(hadistini.length() < 300 ){
+                                    hadist.setText(hadistini);
+                                }else{
+                                    hadist.setText(hadistini.substring(0,300)+"...");
+                                }
+
+                                if(ayatini.length() < 300 ){
+                                    ayat.setText(ayatini);
+                                }else{
+                                    ayat.setText(ayatini.substring(0,300)+"...");
+                                }
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -234,7 +253,8 @@ public class MainFragment extends Fragment {
                                 Glide.with(getActivity()).
                                         load(Config.url+"/masjidapp/src/gambar/"+jo.getString("gambar")).
                                         centerCrop().crossFade().
-                                        diskCacheStrategy(DiskCacheStrategy.NONE).
+                                        diskCacheStrategy(DiskCacheStrategy.ALL).
+                                        placeholder(R.drawable.placeholder).
                                         into(imgartikel);
                             }
                         } catch (JSONException e) {
@@ -264,7 +284,8 @@ public class MainFragment extends Fragment {
                                 Glide.with(getActivity()).
                                         load(Config.url+"/masjidapp/src/gambar/"+jo.getString("gambar")).
                                         centerCrop().crossFade().
-                                        diskCacheStrategy(DiskCacheStrategy.NONE).
+                                        diskCacheStrategy(DiskCacheStrategy.ALL).
+                                        placeholder(R.drawable.placeholder).
                                         into(imgsyar);
                             }
                         } catch (JSONException e) {

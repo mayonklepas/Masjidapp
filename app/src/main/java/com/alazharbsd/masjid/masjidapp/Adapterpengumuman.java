@@ -70,7 +70,7 @@ public class Adapterpengumuman extends RecyclerView.Adapter<Adapterpengumuman.Ho
         Glide.with(ct).
                 load(url.get(position)).
                 centerCrop().crossFade().
-                placeholder(R.mipmap.ic_launcher).
+                placeholder(R.drawable.placeholder).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(holder.imgartikel);
         holder.imgdetail.setOnClickListener(new View.OnClickListener() {

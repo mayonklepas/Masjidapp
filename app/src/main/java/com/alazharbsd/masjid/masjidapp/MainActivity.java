@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             imgpop = (ImageView) inflate.findViewById(R.id.popupbg);
             Glide.with(this).load(Config.url + "/masjidapp/src/gambar/pictinfo.jpg").
                     diskCacheStrategy(DiskCacheStrategy.NONE).
+                    placeholder(R.drawable.placeholder).
                     centerCrop().
                     into(imgpop);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
