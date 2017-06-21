@@ -1,0 +1,135 @@
+{
+  "project_info": {
+    "project_number": "280410887543",
+    "firebase_url": "https://project-6652523158088372862.firebaseio.com",
+    "project_id": "project-6652523158088372862",
+    "storage_bucket": "project-6652523158088372862.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280410887543:android:90eb89b4b6798dcc",
+        "android_client_info": {
+          "package_name": "com.modul.fireapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280410887543-eem7q8i0q78oj4esaea5r30mgcngqpu1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1w_aaKfjMAMf2x9oEvGy_vxp-7JGAZsU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280410887543:android:1b10176bb411e6d5",
+        "android_client_info": {
+          "package_name": "com.app.mulyadi.fcmtesting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280410887543-eem7q8i0q78oj4esaea5r30mgcngqpu1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1w_aaKfjMAMf2x9oEvGy_vxp-7JGAZsU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280410887543:android:30d96c1c910e794c",
+        "android_client_info": {
+          "package_name": "com.app.minami.kirimide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280410887543-eem7q8i0q78oj4esaea5r30mgcngqpu1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1w_aaKfjMAMf2x9oEvGy_vxp-7JGAZsU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280410887543:android:30747ed95a25d017",
+        "android_client_info": {
+          "package_name": "com.alazharbsd.masjid.masjidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280410887543-eem7q8i0q78oj4esaea5r30mgcngqpu1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1w_aaKfjMAMf2x9oEvGy_vxp-7JGAZsU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

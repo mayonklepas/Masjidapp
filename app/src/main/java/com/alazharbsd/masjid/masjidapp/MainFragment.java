@@ -40,11 +40,13 @@ import static android.R.anim.slide_out_right;
 
 public class MainFragment extends Fragment {
 
-    TextView hikmah,hadist,ayat,artikel,detailartikel,detailhikmah,detailhadist,detailayat;
+    TextView hikmah,hadist,ayat,artikel,detailartikel,detailhikmah,detailhadist,
+            detailayat,kegiatanbaru,detailkegiatanbaru,kegiatanbarutema;
     ImageView imgsyar,imgartikel,
-            imgscjadwalkegiatan,imgscjadwalkhutbah,imgscjadwalmasjid,imgscjadwalramadhan,imgscartikel,imgscvideo;
+            imgscjadwalkegiatan,imgscjadwalkhutbah,imgscjadwalmasjid,imgscjadwalramadhan,imgscartikel,imgscvideo,
+    imgscgaleri;
     ViewFlipper slider;
-    int idartikel;
+    int idartikel,idkegiatan;
     String hikmahini,hadistini,ayatini;
 
     @Nullable
@@ -55,10 +57,13 @@ public class MainFragment extends Fragment {
         hadist=(TextView) v.findViewById(R.id.hadist);
         ayat=(TextView) v.findViewById(R.id.ayat);
         artikel=(TextView) v.findViewById(R.id.artikel);
+        kegiatanbaru=(TextView) v.findViewById(R.id.kegiatanbaru);
+        kegiatanbarutema=(TextView) v.findViewById(R.id.kegiatanbarutema);
         detailartikel=(TextView) v.findViewById(R.id.detailartikel);
         detailhikmah=(TextView) v.findViewById(R.id.detailhikmah);
         detailhadist=(TextView) v.findViewById(R.id.detailhadist);
         detailayat=(TextView) v.findViewById(R.id.detailayat);
+        detailkegiatanbaru=(TextView) v.findViewById(R.id.detailkegiatanbaru);
         imgsyar=(ImageView) v.findViewById(R.id.imgsyar);
         imgartikel=(ImageView) v.findViewById(R.id.imgartikel);
         imgscjadwalkegiatan=(ImageView) v.findViewById(R.id.imgscjadwalkegiatan);
@@ -66,6 +71,7 @@ public class MainFragment extends Fragment {
         imgscjadwalmasjid=(ImageView) v.findViewById(R.id.imgscjadwalmasjid);
         imgscjadwalramadhan=(ImageView) v.findViewById(R.id.imgscjadwalramadhan);
         imgscartikel=(ImageView) v.findViewById(R.id.imgscartikel);
+        imgscgaleri=(ImageView) v.findViewById(R.id.imgscgaleri);
         imgscvideo=(ImageView) v.findViewById(R.id.imgscvideo);
         slider=(ViewFlipper) v.findViewById(R.id.slider);
         slider.setAutoStart(true);
@@ -81,6 +87,7 @@ public class MainFragment extends Fragment {
         });
         loadata();
         loadartikel();
+        loadkegiatan();
         loadinfo();
         loadsyar();
         shortcut();
@@ -122,8 +129,18 @@ public class MainFragment extends Fragment {
         detailartikel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getActivity(),ArtikelDetailActivity.class);
+                Intent i=new Intent(getActivity(), ArtikelDetailActivity.class);
                 i.putExtra("id",idartikel);
+                startActivity(i);
+            }
+        });
+
+
+        detailkegiatanbaru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),KegiatanDetailDetailActivity.class);
+                i.putExtra("id",idkegiatan);
                 startActivity(i);
             }
         });
@@ -168,6 +185,14 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(getActivity(),ArtikelkategoriActivity.class);
+                startActivity(i);
+            }
+        });
+
+        imgscgaleri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getActivity(),GaleriActivity.class);
                 startActivity(i);
             }
         });
@@ -270,6 +295,39 @@ public class MainFragment extends Fragment {
                 });
         rq.add(sr);
     }
+
+    public void loadkegiatan(){
+        RequestQueue rq= Volley.newRequestQueue(getActivity().getApplicationContext());
+        StringRequest sr=new StringRequest(Request.Method.GET, Config.url+"/masjidapp/rest/kegiatanterbaru.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray ja=new JSONArray(response);
+                            for (int i = 0; i < ja.length() ; i++) {
+                                JSONObject jo=ja.getJSONObject(i);
+                                String kategori=jo.getString("kategori");
+                                String tema=jo.getString("tema");
+                                String penceramah=jo.getString("penceramah");
+                                idkegiatan=jo.getInt("id");
+                                kegiatanbaru.setText(kategori);
+                                kegiatanbarutema.setText(penceramah+" : "+tema);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        rq.add(sr);
+
+    }
+
 
     public void loadsyar(){
         RequestQueue rq= Volley.newRequestQueue(getActivity().getApplicationContext());

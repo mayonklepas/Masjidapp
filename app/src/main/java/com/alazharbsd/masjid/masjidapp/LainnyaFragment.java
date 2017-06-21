@@ -17,7 +17,7 @@ import android.widget.ImageView;
 
 public class LainnyaFragment extends Fragment {
 
-    ImageView imgkegiatan,imgkhutbah,imgimam,imgartikel,imgramadhan,imgvideo,imgprofile,imginfomasjid;
+    ImageView imgkegiatan,imgkhutbah,imgimam,imgartikel,imgramadhan,imgvideo,imggaleri,imgprofile,imginfomasjid;
 
     @Nullable
     @Override
@@ -28,6 +28,7 @@ public class LainnyaFragment extends Fragment {
         imgimam=(ImageView) v.findViewById(R.id.imgimam);
         imgramadhan=(ImageView) v.findViewById(R.id.imgramadhan);
         imgartikel=(ImageView) v.findViewById(R.id.imgartikel);
+        imggaleri=(ImageView) v.findViewById(R.id.imggaleri);
         imgvideo=(ImageView) v.findViewById(R.id.imgvideo);
         imgprofile=(ImageView) v.findViewById(R.id.imgprofile);
         imginfomasjid=(ImageView) v.findViewById(R.id.imginfomasjid);
@@ -36,6 +37,7 @@ public class LainnyaFragment extends Fragment {
         imam();
         ramadhan();
         artikel();
+        galeri();
         video();
         profile();
         infomasjid();
@@ -89,6 +91,16 @@ public class LainnyaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(v.getContext(),ArtikelkategoriActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void galeri(){
+        imggaleri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(v.getContext(),GaleriActivity.class);
                 startActivity(i);
             }
         });

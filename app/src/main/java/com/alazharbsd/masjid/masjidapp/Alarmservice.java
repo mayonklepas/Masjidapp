@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
  */
 
 public class Alarmservice extends Service {
-    MediaPlayer mp;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -25,14 +25,18 @@ public class Alarmservice extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mp=new MediaPlayer().create(this,R.raw.adzan);
-        //mp.setLooping(true);
-        mp.setVolume(100,100);
+       Config.mp = new MediaPlayer().create(this,R.raw.adzan);
+        Config.mp.setVolume(100,100);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mp.start();
+        if(Config.mp !=null){
+            Config.mp.start();
+        }else {
+            Config.mp = new MediaPlayer().create(this,R.raw.adzan);
+            Config.mp.start();
+        }
         return START_STICKY;
     }
 
@@ -48,7 +52,7 @@ public class Alarmservice extends Service {
 
     @Override
     public void onDestroy() {
-        mp.stop();
-        mp.release();
+        Config.mp.stop();
+        Config.mp.release();
     }
 }

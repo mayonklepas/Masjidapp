@@ -82,7 +82,6 @@ public class SholatFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     Config.notif_is_aktif=true;
-                    //loadalarm();
                     loadalarmsubuh();
                     loadalarmdzuhur();
                     loadalarmashar();
@@ -98,8 +97,10 @@ public class SholatFragment extends Fragment {
                     stopalarmisya();
 
                 }
+                //loadalarm();
             }
         });
+
         return v;
 
     }
@@ -132,6 +133,7 @@ public class SholatFragment extends Fragment {
                                 Config.ashar=jo.getString("ashar").substring(0,jo.getString("ashar").length()-3);
                                 Config.maghrib=jo.getString("maghrib").substring(0,jo.getString("maghrib").length()-3);
                                 Config.isya=jo.getString("isya").substring(0,jo.getString("isya").length()-3);
+                                System.out.println("("+Config.meridiandzuhur+")");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -169,8 +171,8 @@ public class SholatFragment extends Fragment {
     public void loadalarm(){
         alm=(AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, 9 );
-        calendar.set(Calendar.MINUTE, 39);
+        calendar.set(Calendar.HOUR, 5 );
+        calendar.set(Calendar.MINUTE, 55);
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND,0);
         calendar.set(Calendar.AM_PM,Calendar.PM);
@@ -180,7 +182,8 @@ public class SholatFragment extends Fragment {
         Intent intent = new Intent(getActivity().getApplicationContext(), Alarmreceiver.class);
         intent.putExtra("waktu",1);
         pi = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 1, intent, 0);
-        alm.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis() ,AlarmManager.INTERVAL_DAY, pi);
+        //alm.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis() ,AlarmManager.INTERVAL_DAY, pi);
+        alm.set(AlarmManager.RTC_WAKEUP,AlarmManager.INTERVAL_DAY, pi);
     }
 
    private void loadalarmsubuh(){

@@ -1,5 +1,7 @@
 package com.alazharbsd.masjid.masjidapp;
 
+import android.media.MediaPlayer;
+
 /**
  * Created by Minami on 18/05/2017.
  */
@@ -22,6 +24,7 @@ public class Config {
     public static  String isya="";
     public static boolean notif_is_aktif=false;
     public static String meridiandzuhur="";
+    public static MediaPlayer mp;
 
 
 

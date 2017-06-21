@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             hari="Ahad, "+hari.split(",")[1];
         }
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         bartitlekanan.setText(hari);
         bartitlekanan2.setText(hjc.gettglhijriah());
 
@@ -78,8 +80,45 @@ public class MainActivity extends AppCompatActivity {
 
         }else {
 
-            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-            getFragmentManager().beginTransaction().replace(R.id.content, new MainFragment()).commit();
+            Bundle ex=getIntent().getExtras();
+            String sendnotif="";
+            try {
+                sendnotif=ex.getString("kat");
+            }catch (Exception exs){
+                sendnotif="freshopen";
+            }
+            if(sendnotif.equals("jadwal")){
+                Config.mp.stop();
+                Config.mp.release();
+                Config.mp=null;
+                //Config.notif_is_aktif=true;
+                navigation.setSelectedItemId(R.id.shalat);
+                getFragmentManager().beginTransaction().replace(R.id.content, new SholatFragment()).commit();
+
+            }else{
+                getFragmentManager().beginTransaction().replace(R.id.content, new MainFragment()).commit();
+                final Dialog dialog = new Dialog(this);
+                dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                LayoutInflater li = getLayoutInflater();
+                View inflate = li.inflate(R.layout.custompopup, null);
+                dialog.setContentView(inflate);
+                imgpop = (ImageView) inflate.findViewById(R.id.popupbg);
+                Glide.with(this).load(Config.url + "/masjidapp/src/gambar/pictinfo.jpg").
+                        diskCacheStrategy(DiskCacheStrategy.NONE).
+                        placeholder(R.drawable.placeholder).
+                        centerCrop().
+                        into(imgpop);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                dialog.show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                }, 10 * 1000);
+            }
+
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
 
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 1);
@@ -87,26 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            final Dialog dialog = new Dialog(this);
-            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-            LayoutInflater li = getLayoutInflater();
-            View inflate = li.inflate(R.layout.custompopup, null);
-            dialog.setContentView(inflate);
-            imgpop = (ImageView) inflate.findViewById(R.id.popupbg);
-            Glide.with(this).load(Config.url + "/masjidapp/src/gambar/pictinfo.jpg").
-                    diskCacheStrategy(DiskCacheStrategy.NONE).
-                    placeholder(R.drawable.placeholder).
-                    centerCrop().
-                    into(imgpop);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-            dialog.show();
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    dialog.dismiss();
-                }
-            }, 10 * 1000);
         }
 
                 /*if (ActivityCompat.checkSelfPermission(this.getApplicationContext(),
